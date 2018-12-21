@@ -5,6 +5,8 @@
 
 # react-zondicons
 
+See: http://khtdr.com/react-zondicons/ search the icons
+
 React Components for Zondicons : http://www.zondicons.com/
 
 ```bash
