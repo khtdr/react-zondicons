@@ -1,6 +1,6 @@
 {
   "name": "react-zondicons",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Zondicon Component Collection",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -36,6 +36,10 @@
   "license": "CC-BY-1.0",
   "repository": "https://github.com/khtdr/react-zondicons.git",
   "keywords": [
-    "react-component"
+    "react-component",
+    "zondicons",
+    "icons",
+    "svg",
+    "react"
   ]
 }

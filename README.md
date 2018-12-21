@@ -1,5 +1,4 @@
 [![NPM version](https://img.shields.io/npm/v/react-zondicons.svg)](https://www.npmjs.com/package/react-zondicons)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fkhtdr%2Freact-zondicons.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fkhtdr%2Freact-zondicons?ref=badge_shield)
 [![npm](https://img.shields.io/npm/dm/react-zondicons.svg)](https://www.npmjs.com/package/react-zondicons)
 [![npm](https://img.shields.io/npm/dt/react-zondicons.svg)](https://www.npmjs.com/package/react-zondicons)
 
@@ -36,4 +35,3 @@ export default () => <Airplane
 ## License and Info
 
 [![NPM](https://nodei.co/npm/react-zondicons.png)](https://npmjs.org/package/react-zondicons)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fkhtdr%2Freact-zondicons.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fkhtdr%2Freact-zondicons?ref=badge_large)
