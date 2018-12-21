@@ -11,13 +11,11 @@
     "umd"
   ],
   "scripts": {
-    "build": "nwb build-react-component",
+    "zondicons": "node scripts/build.js",
+    "build": "npm run zondicons; rimraf .babelrc; nwb build-react-component",
     "clean": "nwb clean-module && nwb clean-demo",
     "prepublishOnly": "npm run build",
-    "start": "nwb serve-react-demo",
-    "test": "nwb test-react",
-    "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server"
+    "start": "npm run zondicons; nwb serve-react-demo"
   },
   "dependencies": {},
   "peerDependencies": {
@@ -27,12 +25,14 @@
     "cryptiles": "^4.1.3",
     "nwb": "0.23.x",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "rimraf": "^2.6.2",
+    "styled-components": "^4.1.3"
   },
-  "author": "",
-  "homepage": "",
-  "license": "MIT",
-  "repository": "",
+  "author": "Oh Kay",
+  "homepage": "https://github.com/khtdr/react-zondicons",
+  "license": "CC-BY-1.0",
+  "repository": "https://github.com/khtdr/react-zondicons.git",
   "keywords": [
     "react-component"
   ]
