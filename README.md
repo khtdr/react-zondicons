@@ -10,7 +10,9 @@ React Components for Zondicons : http://www.zondicons.com/
 
 ## Live Example
 
-Example JSFiddle: https://jsfiddle.net/zbtd8rv5/
+Example JSFiddle: https://jsfiddle.net/zbtd8rv5/1/
+
+**click the YinYang to see it change**
 
 > documents the various options and class names for customizing an icon
 

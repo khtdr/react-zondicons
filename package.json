@@ -1,6 +1,6 @@
 {
   "name": "react-zondicons",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "React Zondicon Component Collection",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -13,7 +13,7 @@
   "scripts": {
     "zondicons": "node scripts/build.js",
     "build": "npm run zondicons; rimraf .babelrc; nwb build-react-component; rm -rf docs; mv demo/dist docs",
-    "clean": "nwb clean-module && nwb clean-demo",
+    "clean": "nwb clean-module && nwb clean-demo && git checkout umd",
     "prepublishOnly": "npm run build",
     "start": "npm run zondicons; nwb serve-react-demo"
   },
