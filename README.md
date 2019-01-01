@@ -8,7 +8,11 @@ See: http://khtdr.com/react-zondicons/ search the icons
 
 React Components for Zondicons : http://www.zondicons.com/
 
-Example JSFiddle: https://jsfiddle.net/sgrbexm6/
+## Live Example
+
+Example JSFiddle: https://jsfiddle.net/zbtd8rv5/
+
+> documents the various options and class names for customizing an icon
 
 ## Module Usage
 ```bash
