@@ -8,6 +8,7 @@ See: http://khtdr.com/react-zondicons/ search the icons
 
 React Components for Zondicons : http://www.zondicons.com/
 
+## Module Usage
 ```bash
 npm install react-zondicons
 ```
@@ -31,6 +32,35 @@ export default () => <Airplane
                      />
 ```
 
+## Script Usage:
+
+``` html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Zondicons example</title>
+    <script type="text/javascript" src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script type="text/javascript" src="https://gitcdn.link/repo/khtdr/react-zondicons/master/umd/react-zondicons.min.js"></script>
+  </head>
+  <body>
+    <div id='root'></div>
+    <script type="text/jsx"
+    data-presets="es2017,react,stage-0"
+    data-plugins="transform-decorators-legacy">
+      ReactDOM.render(
+        <div>
+            <ReactZondicons.AddSolid />
+            <ReactZondicons.AddSolid size={40} style={{fill:'red'}} />
+        </div>,
+        document.getElementById('root')
+      );
+    </script>
+  </body>
+</html>
+```
+
+Example JSFiddle: https://jsfiddle.net/sgrbexm6/
 
 ## License and Info
 
