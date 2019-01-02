@@ -58,22 +58,32 @@ const Page = styled.div`
 const SearchBox = styled.div`
   display: flex;
   justify-content: center;
-  height: 60px;
+  height: 40px;
+  padding: 10px 0 0 10px;
   input {
-    border: 2px solid #47a;
-    border-radius: 5px;
+    border: 1px solid #47a;
+    border-radius: 1px;
     font-size: 16px;
     padding: 3px 10px;
-    margin-left: 30px;
+    flex: 1px;
   }
   input + svg {
     margin: 4px 0 0 10px;
+    cursor: pointer;
+  }
+  input + svg:hover {
+    fill: red;
+  }
+  & + small {
+    display: block;
+    padding: 10px;
+    color: #777;
   }
 `;
 
 const List = styled.ul`
   padding: 4px;
-  height: calc(100% - 60px);
+  height: calc(100% - 80px);
   overflow: auto;
   list-style-type: none;
   &::-webkit-scrollbar {
@@ -101,7 +111,7 @@ const Item = styled.li`
   color: #444;
   background-color: inherit;
   border-radius: 2px;
-  cursor: pointer;
+  cursor: default;
   transition: all 0.2s;
   &:hover {
     filter: invert(1);
@@ -124,10 +134,38 @@ const Item = styled.li`
   }
 `;
 
+const Cate = styled.ul`
+  padding-top: 10px;
+`;
+const Gory = styled.li`
+  display: inline-block;
+  margin: 1px;
+  padding: 3px;
+  border-radius: 5px;
+  font-size: 10px;
+  text-transform: uppercase;
+  border: 1px solid #e4e4e6;
+  background-color: #eef;
+  cursor: pointer;
+  &:hover {
+    background-color: #ddf;
+  }
+`;
+
 class Demo extends Component {
     constructor(props) {
         super(props);
         this.state = {value:''}
+    }
+    categories() {
+        const tallies = {};
+        for (const name in icons) {
+            name.match(/[A-Z][a-z]+/g).forEach(word => {
+                tallies[word] = tallies[word] || 0;
+                tallies[word]++;
+            })
+        }
+        return Object.keys(tallies).filter(name => tallies[name] >= 3).sort();
     }
     icons(filter) {
         return Object.keys(icons).filter(
@@ -136,6 +174,17 @@ class Demo extends Component {
             const Icon = icons[name];
             return { Icon, name };
         });
+    }
+    toClipboard(e) {
+        let li = e.target;
+        while(li.nodeName != 'LI') li = li.parentElement;
+        const input = li.querySelector('input');
+        input.select();
+        document.execCommand("copy");
+        setTimeout(() => {
+            if (window.getSelection) {window.getSelection().removeAllRanges();}
+            else if (document.selection) {document.selection.empty();}
+        }, 10)
     }
     render() {
         return (
@@ -148,15 +197,19 @@ class Demo extends Component {
 
                   <h1>react-zondicons</h1>
 
-                  <p>A small, fast, customizable SVG icon set for React apps.</p>
+                  <p>A small, fast, customizable, and great looking SVG icon set for React apps.</p>
 
-                  {this.icons(this.state.value).map(({ name, Icon }) => (
-                      <Icon className='inline' alt={name} />
+                  {this.icons().map(({ name, Icon }) => (
+                      <Icon className='inline' alt={name} onClick={() => this.setState({ value: name })} />
                   ))}
+
+                  <Cate>
+                  {this.categories().map(name => <Gory onClick={() => this.setState({ value: name })}>{name}</Gory>)}
+                  </Cate>
 
                   <p>file sizes before compression:</p>
                   <pre>{`  61K es/index.js\n  76K lib/index.js\n 113K umd/react-zondicons.js\n  68K umd/react-zondicons.min.js\n  79K umd/react-zondicons.min.js.map`}</pre>
-                  <p>Download size is less than 20kb after GZIP compression.</p>
+                  <p>Download size is under 20K after GZIP compression.</p>
 
                   <h2>Getting Started</h2>
 
@@ -192,19 +245,21 @@ class Demo extends Component {
                 <aside>
                   <SearchBox>
                     <input
-                      placeholder='find...'
+                      placeholder='filter...'
                       type='text'
                       onChange={e => this.setState({value: e.target.value})}
                       value={this.state.value}
+                      ref={_ => this.ref = _}
                     />
                     <CloseOutline
                       style={{visibility:this.state.value?'visible':'hidden'}}
                       onClick={()=>this.setState({value:''})}
                     />
                   </SearchBox>
+                  <small>click to copy the component name</small>
                   <List>
                   {this.icons(this.state.value).map(({ name, Icon }) => (
-                    <Item key={name} >
+                    <Item key={name} onClick={this.toClipboard}>
                       <Icon /><input value={name} readOnly />
                     </Item>
                   ))}
