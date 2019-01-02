@@ -227,7 +227,7 @@ class Demo extends Component {
 
                   <h3>Live Example</h3>
 
-                  <p><a href="https://jsfiddle.net/zbtd8rv5/1/">https://jsfiddle.net/zbtd8rv5/1</a> <em>shown below</em></p>
+                  <p><a href="https://jsfiddle.net/zbtd8rv5/2/">https://jsfiddle.net/zbtd8rv5/2</a> <em>shown below</em></p>
 
                   <iframe width="100%" height="325" src="//jsfiddle.net/zbtd8rv5/2/embedded/js,css,result/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
 
