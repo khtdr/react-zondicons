@@ -231,7 +231,7 @@ class Demo extends Component {
               <Page ref={_ => this.page = _}>
                 <main>
 
-                  <p><a href="https://npmjs.org/package/react-zondicons"><img alt="NPM" src="https://nodei.co/npm/react-zondicons.png"/></a></p>
+                  <p><a href="https://npmjs.org/package/react-zondicons"><img style={{maxWidth:'100%',display:'inline-block'}} alt="NPM" src="https://nodei.co/npm/react-zondicons.png"/></a></p>
 
                   <h1>react-zondicons</h1>
 
