@@ -200,11 +200,11 @@ class Demo extends Component {
                   <p>A small, fast, customizable, and great looking SVG icon set for React apps.</p>
 
                   {this.icons().map(({ name, Icon }) => (
-                      <Icon className='inline' alt={name} onClick={() => this.setState({ value: name })} />
+                      <Icon key={name} className='inline' alt={name} onClick={() => this.setState({ value: name })} />
                   ))}
 
                   <Cate>
-                  {this.categories().map(name => <Gory onClick={() => this.setState({ value: name })}>{name}</Gory>)}
+                  {this.categories().map(name => <Gory key={name} onClick={() => this.setState({ value: name })}>{name}</Gory>)}
                   </Cate>
 
                   <p>file sizes before compression:</p>
