@@ -218,11 +218,17 @@ class Demo extends Component {
             else if (document.selection) {document.selection.empty();}
         }, 10)
     }
+    searchFor(value = '') {
+        this.setState({ value });
+        if (value) {
+            window.scrollTo(0, Math.max(this.page.querySelector('aside').getBoundingClientRect().top - 100, 0))
+        }
+    }
     render() {
         return (
             <React.Fragment>
               <GlobalStyle />
-              <Page>
+              <Page ref={_ => this.page = _}>
                 <main>
 
                   <p><a href="https://npmjs.org/package/react-zondicons"><img alt="NPM" src="https://nodei.co/npm/react-zondicons.png"/></a></p>
@@ -233,12 +239,12 @@ class Demo extends Component {
 
                   <p style={{paddingTop: '20px'}}>
                   {this.icons().map(({ name, Icon }) => (
-                      <Icon key={name} className='inline' alt={name} onClick={() => this.setState({ value: name })} />
+                      <Icon key={name} className='inline' alt={name} onClick={() => this.searchFor(name)} />
                   ))}
                   </p>
 
                   <Cate>
-                  {this.categories().map(name => <Gory key={name} onClick={() => this.setState({ value: name })}>{name}</Gory>)}
+                  {this.categories().map(name => <Gory key={name} onClick={() => this.searchFor(name)}>{name}</Gory>)}
                   </Cate>
 
                   <p>file sizes before compression:</p>
@@ -281,13 +287,13 @@ class Demo extends Component {
                     <input
                       placeholder='filter...'
                       type='text'
-                      onChange={e => this.setState({value: e.target.value})}
+                      onChange={e => this.searchFor(e.target.value)}
                       value={this.state.value}
                       ref={_ => this.ref = _}
                     />
                     <CloseOutline
                       style={{visibility:this.state.value?'visible':'hidden'}}
-                      onClick={()=>this.setState({value:''})}
+                      onClick={()=>this.searchFor()}
                     />
                   </SearchBox>
                   <small>click to copy the component name</small>
