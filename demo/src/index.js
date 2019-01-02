@@ -10,51 +10,6 @@ const GlobalStyle = createGlobalStyle`
   * { box-sizing: border-box; }
 `;
 
-const Page = styled.div`
-  font-family: sans-serif;
-  text-align: left;
-  font-size: 13px;
-  background-color: white;
-  > main {
-    padding: 20px;
-    padding-left: 320px;
-    max-width: 950px;
-    > p:last-child {
-      padding-top: 40px;
-      padding-bottom: 40px;
-      text-align: center;
-    }
-  }
-  > aside {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 300px;
-    background: linear-gradient(to right, #f3f5f6 90%,rgba(0,0,0,0) 100%);
-    height: 100vh;
-    overflow: hidden;
-  }
-  pre {
-    white-space: pre-wrap;
-    background-color: #f3f5f6;
-    padding: 6px;
-    color: #333840;
-  }
-  .-zondicon.inline {
-    height: 19px;
-    width: 19px;
-    border: solid 3px white;
-    display: inline-block;
-    fill: #345;
-    transition: all 0.3s;
-  }
-  .-zondicon.inline:hover {
-    transform: scale(3);
-    fill: #923;
-    background-color: white;
-  }
-`;
-
 const SearchBox = styled.div`
   display: flex;
   justify-content: center;
@@ -122,6 +77,7 @@ const Item = styled.li`
     position: relative;
     top: 4px;
     margin-right: 10px;
+    fill: #578;
   }
   input {
     outline: none;
@@ -131,6 +87,8 @@ const Item = styled.li`
     font-family: Verdana, sans-serif;
     font-size: 14px;
     line-height: 23px;
+    color: #222;
+    display: inline;
   }
 `;
 
@@ -149,6 +107,80 @@ const Gory = styled.li`
   cursor: pointer;
   &:hover {
     background-color: #ddf;
+  }
+`;
+
+const Page = styled.div`
+  font-family: sans-serif;
+  text-align: left;
+  font-size: 13px;
+  background-color: white;
+  > main {
+    padding: 20px;
+    padding-left: 320px;
+    max-width: 950px;
+    > p:last-child {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      text-align: center;
+    }
+  }
+  > aside {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 300px;
+    background: linear-gradient(to right, #f3f5f6 90%,rgba(0,0,0,0) 100%);
+    height: 100vh;
+    overflow: hidden;
+  }
+  pre {
+    white-space: pre-wrap;
+    background-color: #f3f5f6;
+    padding: 6px;
+    color: #333840;
+  }
+  .-zondicon.inline {
+    height: 19px;
+    width: 19px;
+    border: solid 3px white;
+    display: inline-block;
+    fill: #345;
+    transition: all 0.3s;
+  }
+  .-zondicon.inline:hover {
+    transform: scale(3);
+    fill: #923;
+    background-color: white;
+  }
+  @media (max-width: 760px) {
+    /* tablet/mobile styles */
+    > main {
+      padding-left: 20px;
+    }
+    > aside {
+      position: relative;
+      background-color: #f3f5f6;
+      height: auto;
+      width: 100%;
+      min-height: 100vh;
+    }
+    ${List} {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    ${Item} {
+      flex: 1;
+      padding: 20px 0;
+      text-align: center;
+      * { text-align: center; }
+      svg {
+        display: block;
+        margin: 10px auto;
+        height: 40px;
+        width: 40px;
+      }
+    }
   }
 `;
 
@@ -199,9 +231,11 @@ class Demo extends Component {
 
                   <p>A small, fast, customizable, and great looking SVG icon set for React apps.</p>
 
+                  <p style={{paddingTop: '20px'}}>
                   {this.icons().map(({ name, Icon }) => (
                       <Icon key={name} className='inline' alt={name} onClick={() => this.setState({ value: name })} />
                   ))}
+                  </p>
 
                   <Cate>
                   {this.categories().map(name => <Gory key={name} onClick={() => this.setState({ value: name })}>{name}</Gory>)}
