@@ -237,7 +237,7 @@ class Demo extends Component {
 
                   <p>zondicons.com describes the icon set as "free" and shows the Creative Commons logo.</p>
 
-                  <p>The source code at <a href="https://github.com/khtdr/react-zondicons">https://github.com/khtdr/react-zondicons</a> bundles the said icons into a React library. That build script, and the resulting libraries, are MIT licensed.</p>
+                  <p>The source code at <a href="https://github.com/khtdr/react-zondicons">https://github.com/khtdr/react-zondicons</a> bundles the said icons into a React library. That build script is MIT licensed.</p>
 
                   <p>back to <a href="https://khtdr.com/">khtdr.com</a></p>
 
