@@ -1,6 +1,6 @@
 {
   "name": "react-zondicons",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "React Zondicon Component Collection",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -32,7 +32,7 @@
     "timespan": "^2.3.0"
   },
   "author": "Oh Kay",
-  "homepage": "https://github.com/khtdr/react-zondicons",
+  "homepage": "https://khtdr.com/react-zondicons",
   "license": "CC-BY-1.0",
   "repository": "https://github.com/khtdr/react-zondicons.git",
   "keywords": [

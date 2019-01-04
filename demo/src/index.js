@@ -60,7 +60,7 @@ const List = styled.ul`
   }
 `;
 
-const Item = styled.li`
+const Item = styled.li.attrs({ tabIndex: 1 })`
   padding: 0 5px;
   margin: 10px;
   color: #444;
@@ -68,9 +68,13 @@ const Item = styled.li`
   border-radius: 2px;
   cursor: default;
   transition: all 0.2s;
+  outline: none;
   &:hover {
     filter: invert(1);
     background-color: white;
+  }
+  &:focus {
+    background-color: rgba(0,0,0,0.1);
   }
   svg {
     display: inline-block;
@@ -78,6 +82,9 @@ const Item = styled.li`
     top: 4px;
     margin-right: 10px;
     fill: #578;
+  }
+  span {
+    line-height: 23px;
   }
   input {
     outline: none;
@@ -171,7 +178,7 @@ const Page = styled.div`
     }
     ${Item} {
       flex: 1;
-      padding: 20px 0;
+      padding: 20px;
       text-align: center;
       * { text-align: center; }
       svg {
@@ -184,10 +191,130 @@ const Page = styled.div`
   }
 `;
 
+// https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
+function copyTextToClipboard(text) {
+  var textArea = document.createElement("textarea");
+
+  //
+  // *** This styling is an extra step which is likely not required. ***
+  //
+  // Why is it here? To ensure:
+  // 1. the element is able to have focus and selection.
+  // 2. if element was to flash render it has minimal visual impact.
+  // 3. less flakyness with selection and copying which **might** occur if
+  //    the textarea element is not visible.
+  //
+  // The likelihood is the element won't even render, not even a flash,
+  // so some of these are just precautions. However in IE the element
+  // is visible whilst the popup box asking the user for permission for
+  // the web page to copy to the clipboard.
+  //
+
+  // Place in top-left corner of screen regardless of scroll position.
+  textArea.style.position = 'fixed';
+  textArea.style.top = 0;
+  textArea.style.left = 0;
+
+  // Ensure it has a small width and height. Setting to 1px / 1em
+  // doesn't work as this gives a negative w/h on some browsers.
+  textArea.style.width = '2em';
+  textArea.style.height = '2em';
+
+  // We don't need padding, reducing the size if it does flash render.
+  textArea.style.padding = 0;
+
+  // Clean up any borders.
+  textArea.style.border = 'none';
+  textArea.style.outline = 'none';
+  textArea.style.boxShadow = 'none';
+
+  // Avoid flash of white box if rendered for any reason.
+  textArea.style.background = 'transparent';
+
+
+  textArea.value = text;
+
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    document.execCommand('copy');
+  } catch (err) {
+      // what do ya do?
+  }
+
+  document.body.removeChild(textArea);
+}
+
+class IconButton extends React.PureComponent {
+    constructor(props) {
+        super(props);
+        this.search = this.search.bind(this);
+    }
+    search() {
+        console.log('search for', this.props.name)
+        this.props.searchFor(this.props.name);
+    }
+    render() {
+        return <this.props.Icon className='inline' alt={name} onClick={this.search} />
+    }
+
+}
+
+class IconMap extends React.PureComponent {
+    render() {
+        return this.props.icons.map(
+            ({ name, Icon }) => <IconButton name={name} searchFor={this.props.searchFor} Icon={Icon} key={name} />
+        );
+    }
+}
+
+class CategoryButton extends React.PureComponent {
+    constructor(props) {
+        super(props);
+        this.search = this.search.bind(this);
+    }
+    search() {
+        console.log('search for', this.props.name)
+        this.props.searchFor(this.props.name);
+    }
+    render() {
+        return <Gory onClick={this.search}>{this.props.name}</Gory>
+    }
+}
+
+class Categories extends React.PureComponent {
+    render() {
+        return (
+            <Cate>
+              {this.props.categories.map(
+                  name => <CategoryButton key={name} name={name} searchFor={this.props.searchFor} />
+              )}
+            </Cate>
+        );
+    }
+}
+
+class CopyButton extends React.PureComponent {
+    constructor(props) {
+        super(props);
+        this.copy = this.copy.bind(this);
+    }
+    copy() {
+        console.log('copying', this.props.name)
+        copyTextToClipboard(this.props.name)
+    }
+    render() {
+        return <Item onClick={this.copy}>{this.props.children}</Item>
+    }
+}
+
 class Demo extends Component {
     constructor(props) {
         super(props);
         this.state = {value:''}
+        this.searchFor = this.searchFor.bind(this);
     }
     categories() {
         const tallies = {};
@@ -207,20 +334,9 @@ class Demo extends Component {
             return { Icon, name };
         });
     }
-    toClipboard(e) {
-        let li = e.target;
-        while(li.nodeName != 'LI') li = li.parentElement;
-        const input = li.querySelector('input');
-        input.select();
-        document.execCommand("copy");
-        setTimeout(() => {
-            if (window.getSelection) {window.getSelection().removeAllRanges();}
-            else if (document.selection) {document.selection.empty();}
-        }, 10)
-    }
     searchFor(value = '') {
         this.setState({ value });
-        if (value) {
+        if (value && window.innerWidth <= 760) {
             window.scrollTo(0, Math.max(this.page.querySelector('aside').getBoundingClientRect().top - 100, 0))
         }
     }
@@ -238,14 +354,10 @@ class Demo extends Component {
                   <p>A small, fast, customizable, and great looking SVG icon set for React apps.</p>
 
                   <p style={{paddingTop: '20px'}}>
-                  {this.icons().map(({ name, Icon }) => (
-                      <Icon key={name} className='inline' alt={name} onClick={() => this.searchFor(name)} />
-                  ))}
+                    <IconMap icons={this.icons()} searchFor={this.searchFor} />
                   </p>
 
-                  <Cate>
-                  {this.categories().map(name => <Gory key={name} onClick={() => this.searchFor(name)}>{name}</Gory>)}
-                  </Cate>
+                  <Categories searchFor={this.searchFor} categories={this.categories()}/>
 
                   <p>file sizes before compression:</p>
                   <pre>{`  61K es/index.js\n  76K lib/index.js\n 113K umd/react-zondicons.js\n  68K umd/react-zondicons.min.js\n  79K umd/react-zondicons.min.js.map`}</pre>
@@ -292,16 +404,16 @@ class Demo extends Component {
                       ref={_ => this.ref = _}
                     />
                     <CloseOutline
-                      style={{visibility:this.state.value?'visible':'hidden'}}
+                      style={{visibility:this.state.value?'visible':'hidden', margin:'0 10px',overflow:'visible'}}
                       onClick={()=>this.searchFor()}
                     />
                   </SearchBox>
                   <small>click to copy the component name</small>
                   <List>
                   {this.icons(this.state.value).map(({ name, Icon }) => (
-                    <Item key={name} onClick={this.toClipboard}>
-                      <Icon /><input value={name} readOnly />
-                    </Item>
+                    <CopyButton key={name} name={name}>
+                      <Icon /><span>{name}</span>
+                    </CopyButton>
                   ))}
                   </List>
                 </aside>
