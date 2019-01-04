@@ -340,6 +340,11 @@ class Demo extends Component {
             window.scrollTo(0, Math.max(this.page.querySelector('aside').getBoundingClientRect().top - 100, 0))
         }
     }
+    componentDidMount() {
+        if (this.ref && window.innerWidth > 760) {
+            this.ref.focus()
+        }
+    }
     render() {
         return (
             <React.Fragment>
@@ -402,7 +407,6 @@ class Demo extends Component {
                       onChange={e => this.searchFor(e.target.value)}
                       value={this.state.value}
                       ref={_ => this.ref = _}
-                      autoFocus={true}
                     />
                     <CloseOutline
                       style={{visibility:this.state.value?'visible':'hidden', margin:'0 10px',overflow:'visible'}}
