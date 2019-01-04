@@ -402,6 +402,7 @@ class Demo extends Component {
                       onChange={e => this.searchFor(e.target.value)}
                       value={this.state.value}
                       ref={_ => this.ref = _}
+                      autoFocus={true}
                     />
                     <CloseOutline
                       style={{visibility:this.state.value?'visible':'hidden', margin:'0 10px',overflow:'visible'}}
