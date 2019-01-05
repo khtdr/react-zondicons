@@ -23,11 +23,16 @@ const SearchBox = styled.div`
     flex: 1px;
   }
   input + svg {
-    margin: 4px 0 0 10px;
+    margin: 3px 10px;
     cursor: pointer;
+    padding: 3px;
+    height: 26px;
+    width: 26px;
+    border-radius: 2px;
   }
   input + svg:hover {
     fill: red;
+    background-color: rgba(0,0,0,0.1);
   }
   & + small {
     display: block;
@@ -148,17 +153,18 @@ const Page = styled.div`
     color: #333840;
   }
   .-zondicon.inline {
-    height: 19px;
-    width: 19px;
-    border: solid 3px white;
+    height: 22px;
+    width: 22px;
     display: inline-block;
+    padding: 0px 5px;
     fill: #345;
     transition: all 0.3s;
+    cursor: pointer;
   }
   .-zondicon.inline:hover {
-    transform: scale(3);
     fill: #923;
-    background-color: white;
+    background-color: #e3e5e6;
+    transform: scale(1.5);
   }
   @media (max-width: 760px) {
     /* tablet/mobile styles */
@@ -247,25 +253,62 @@ function copyTextToClipboard(text) {
   document.body.removeChild(textArea);
 }
 
-class IconButton extends React.PureComponent {
+class CopyButton extends React.PureComponent {
+    constructor(props) {
+        super(props);
+        this.copy = this.copy.bind(this);
+    }
+    copy() {
+        copyTextToClipboard(this.props.value)
+    }
+    render() {
+        return React.Children.map(
+            React.Children.only(this.props.children),
+            child => React.cloneElement(
+                child,
+                {
+                    onClick : e => {
+                        this.copy(e)
+                        this.props.onClick && this.props.onClick(e)
+                    }
+                }
+            )
+        )
+    }
+}
+
+class SearchButton extends React.PureComponent {
     constructor(props) {
         super(props);
         this.search = this.search.bind(this);
     }
     search() {
-        console.log('search for', this.props.name)
-        this.props.searchFor(this.props.name);
+        this.props.search(this.props.value);
     }
     render() {
-        return <this.props.Icon className='inline' alt={name} onClick={this.search} />
+        return React.Children.map(
+            React.Children.only(this.props.children),
+            child => React.cloneElement(
+                child,
+                {
+                    onClick : e => {
+                        this.search(e)
+                        this.props.onClick && this.props.onClick(e)
+                    }
+                }
+            )
+        )
     }
-
 }
 
 class IconMap extends React.PureComponent {
     render() {
         return this.props.icons.map(
-            ({ name, Icon }) => <IconButton name={name} searchFor={this.props.searchFor} Icon={Icon} key={name} />
+            ({ name, Icon }) => <CopyButton value={name} key={name}>
+                                  <SearchButton search={this.props.search} value={name}>
+                                    <Icon className='inline' title={name} />
+                                  </SearchButton>
+                                </CopyButton>
         );
     }
 }
@@ -276,7 +319,6 @@ class CategoryButton extends React.PureComponent {
         this.search = this.search.bind(this);
     }
     search() {
-        console.log('search for', this.props.name)
         this.props.searchFor(this.props.name);
     }
     render() {
@@ -293,20 +335,6 @@ class Categories extends React.PureComponent {
               )}
             </Cate>
         );
-    }
-}
-
-class CopyButton extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.copy = this.copy.bind(this);
-    }
-    copy() {
-        console.log('copying', this.props.name)
-        copyTextToClipboard(this.props.name)
-    }
-    render() {
-        return <Item onClick={this.copy}>{this.props.children}</Item>
     }
 }
 
@@ -337,7 +365,7 @@ class Demo extends Component {
     searchFor(value = '') {
         this.setState({ value });
         if (value && window.innerWidth <= 760) {
-            window.scrollTo(0, Math.max(this.page.querySelector('aside').getBoundingClientRect().top - 100, 0))
+            this.page.querySelector('aside').scrollIntoView()
         }
     }
     componentDidMount() {
@@ -359,7 +387,7 @@ class Demo extends Component {
                   <p>A small, fast, customizable, and great looking SVG icon set for React apps.</p>
 
                   <p style={{paddingTop: '20px'}}>
-                    <IconMap icons={this.icons()} searchFor={this.searchFor} />
+                    <IconMap icons={this.icons()} search={this.searchFor} />
                   </p>
 
                   <Categories searchFor={this.searchFor} categories={this.categories()}/>
@@ -409,7 +437,7 @@ class Demo extends Component {
                       ref={_ => this.ref = _}
                     />
                     <CloseOutline
-                      style={{visibility:this.state.value?'visible':'hidden', margin:'0 10px',overflow:'visible'}}
+                      style={{visibility:this.state.value?'visible':'hidden', overflow:'visible'}}
                       onClick={()=>this.searchFor()}
                     />
                   </SearchBox>
@@ -417,7 +445,7 @@ class Demo extends Component {
                   <List>
                   {this.icons(this.state.value).map(({ name, Icon }) => (
                     <CopyButton key={name} name={name}>
-                      <Icon /><span>{name}</span>
+                      <Item><Icon /><span>{name}</span></Item>
                     </CopyButton>
                   ))}
                   </List>

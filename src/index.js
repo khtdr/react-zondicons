@@ -8,7 +8,7 @@ function Svg(p) {
          xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'
          width={p.size||20} height={p.size||20} style={p.style}
          className={`-zondicon ${p.className}`}
-    >{p.children}</svg>
+    >{p.title?<title>{p.title}</title>:null}{p.children}</svg>
   )
 }
 function $(name, shape) {
