@@ -75,7 +75,8 @@ declare module 'react-zondicons' {
       file = file.replace(/\s+/g, '-');
       const words = file.split('.')[0].split('-');
       const name = words.map(up).join('');
-      index_dts += `    export const ${name} :SFC<SVGElement|{size?:number;title?:string;className?:string}>\n`;
+      index_dts += `    export const ${name} :(props :{ className? :string; size? :number; style? :any } & React.HTMLProps<SVGSVGElement>) => JSX.Element
+\n`;
     }
   });
   index_dts += '  }\n  export = ReactZondicons\n}';
