@@ -67,7 +67,6 @@ console.log('building type declarations...');
 (() => {
   let index_dts = `
 declare module 'react-zondicons' {
-  import {SFC} from 'react';
   namespace ReactZondicons {
 `;
   fs.readdirSync('./scripts/zondicons').forEach(file => {
