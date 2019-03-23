@@ -6,3 +6,4 @@
 /umd
 !/umd/react-zondicons.min.js
 npm-debug.log*
+.babelrc

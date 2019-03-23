@@ -1,23 +1,23 @@
 
-import React from 'react'
-const _ = {}
-export default _
-function Svg(p) {
-  return (
-    <svg {...p}
-         xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'
-         width={p.size||20} height={p.size||20} style={p.style}
-         className={`-zondicon ${p.className}`}
-    >{p.title?<title>{p.title}</title>:null}{p.children}</svg>
-  )
-}
-function $(name, shape) {
-  let new_name = name.match(/[A-Z][a-z]+/g).map(w => w.toLowerCase()).join('-')
-  return _[name] = p => (
-    <Svg {...p} className={`-zondicon-${new_name} ${p.className}`}>{shape}</Svg>
-  )
-}
-export const AddOutline=$('AddOutline', <path d="M11 9h4v2h-4v4H9v-4H5V9h4V5h2v4zm-1 11a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/>),
+  import React from 'react'
+  const _ = {}
+  export default _
+  function Svg(p) {
+    return (
+      <svg {...p}
+          xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'
+          width={p.size||20} height={p.size||20} style={p.style}
+          className={`-zondicon ${p.className}`}
+      >{p.title?<title>{p.title}</title>:null}{p.children}</svg>
+    )
+  }
+  function $(name, shape) {
+    let new_name = name.match(/[A-Z][a-z]+/g).map(w => w.toLowerCase()).join('-')
+    return _[name] = p => (
+      <Svg {...p} className={`-zondicon-${new_name} ${p.className}`}>{shape}</Svg>
+    )
+  }
+  export const AddOutline=$('AddOutline', <path d="M11 9h4v2h-4v4H9v-4H5V9h4V5h2v4zm-1 11a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/>),
 AddSolid=$('AddSolid', <path d="M11 9V5H9v4H5v2h4v4h2v-4h4V9h-4zm-1 11a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"/>),
 Adjust=$('Adjust', <path d="M10 2v16a8 8 0 1 0 0-16zm0 18a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"/>),
 Airplane=$('Airplane', <path d="M8.4 12H2.8L1 15H0V5h1l1.8 3h5.6L6 0h2l4.8 8H18a2 2 0 1 1 0 4h-5.2L8 20H6l2.4-8z"/>),
