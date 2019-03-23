@@ -79,7 +79,7 @@ declare module 'react-zondicons' {
     }
   });
   index_dts += '  }\n  export = ReactZondicons\n}';
-  fs.writeFileSync(`./index.d.ts`, index_dts);
+  fs.writeFileSync(`./types/index.d.ts`, index_dts);
 })();
 
 console.log('done')
