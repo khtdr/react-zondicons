@@ -1,6 +1,6 @@
 {
   "name": "react-zondicons",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "React Zondicon Component Collection",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -9,7 +9,8 @@
     "css",
     "es",
     "lib",
-    "umd"
+    "umd",
+    "types"
   ],
   "scripts": {
     "zondicons": "node scripts/build.js",
