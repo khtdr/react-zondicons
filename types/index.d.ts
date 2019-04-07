@@ -1,6 +1,5 @@
 
 declare module 'react-zondicons' {
-  import {SFC} from 'react';
   namespace ReactZondicons {
     export const AddOutline :(props :{ className? :string; size? :number; style? :any } & React.HTMLProps<SVGSVGElement>) => JSX.Element
     export const AddSolid :(props :{ className? :string; size? :number; style? :any } & React.HTMLProps<SVGSVGElement>) => JSX.Element
