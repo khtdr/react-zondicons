@@ -127,11 +127,11 @@ export default class Demo extends React.Component<{
                         <h3>Customizable:</h3>
                         <p><strong>Code Example:</strong></p>
                         <SyntaxHighlighter language='javascript' style={docco}>
-                            {`import React from 'react';\nimport { YinYang } from 'react-zondicons';\nexport default () => (\n  <YinYang\n    // Only custom property (optional)\n    size={50} // default 20, all icons have square proportions\n    // All additional props are passed to the <svg ... />\n    className='my-icon'\n    onClick={e => console.log('clicked', e)}\n    // etc...\n  />\n);`}
+                            {`import React from 'react';\nimport { YinYang } from 'react-zondicons';\nexport default () => (\n  <YinYang\n    size={50}\n    className='my-icon'\n    onClick={e => console.log('clicked', e)}\n  />\n);`}
                         </SyntaxHighlighter>
 
 
-                        <h3>Small:</h3>
+                        <h3>Small (no dependencies!):</h3>
                         <p>file sizes before compression:</p>
                         <pre>{`  61K es/index.js\n  76K lib/index.js\n 113K umd/react-zondicons.js\n  68K umd/react-zondicons.min.js\n  79K umd/react-zondicons.min.js.map`}</pre>
                         <p>Download size is under 20K after GZIP compression.</p>
