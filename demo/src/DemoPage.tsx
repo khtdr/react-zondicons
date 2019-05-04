@@ -200,12 +200,16 @@ export default class Demo extends React.Component<{
                                     width={props.width}
                                 >
                                     {(props :{ rowIndex :number, columnIndex :number, style :any}) => {
-                                        const { name, Icon } = this.icons(this.state.search_term)[props.rowIndex * 2 + props.columnIndex];
+                                        const index = props.rowIndex * 2 + props.columnIndex;
+                                        const icons = this.icons(this.state.search_term);
+                                        const { name, Icon } = icons.length > index ? icons[index] : { name:'', Icon:null }
                                         return (
                                             <div style={props.style}>
-                                                <CopyButton key={name} value={name}>
-                                                    <Item><Icon /><span>{name}</span></Item>
-                                                </CopyButton>
+                                                {icons[index] &&
+                                                 <CopyButton key={name} value={name}>
+                                                     <Item><Icon /><span>{name}</span></Item>
+                                                 </CopyButton>
+                                                }
                                             </div>
                                         )
                                     }}
