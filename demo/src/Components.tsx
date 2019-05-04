@@ -87,8 +87,8 @@ padding-top: 10px;
 
 export const CategoryButton = styled.li`
 display: inline-block;
-margin: 1px;
-padding: 3px;
+margin: 3px;
+padding: 3px 6px;
 border-radius: 5px;
 font-size: 10px;
 text-transform: uppercase;

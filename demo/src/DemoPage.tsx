@@ -15,6 +15,15 @@ const GlobalStyle = createGlobalStyle`
   html { background-color: white; }
   html, body, ul, li { margin: 0; padding: 0; }
   * { box-sizing: border-box; }
+  #github {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    img { margin: -10px }
+  &:hover {
+    background-color: rgba(235, 215, 255, 0.8);
+  }}
 `;
 
 const Page = styled.div`
@@ -36,7 +45,7 @@ const Page = styled.div`
     position: fixed;
     top: 0px;
     left: 0px;
-    width: 375px;
+    width: 385px;
     background: linear-gradient(to right, #f3f5f6 90%,rgba(0,0,0,0) 100%);
     height: 100vh;
     overflow: hidden;
@@ -109,6 +118,7 @@ export default class Demo extends React.Component<{
     render() {
         return (
             <React.Fragment>
+                <a id='github' href='https://github.com/khtdr/react-zondicons'><img src='https://github.blog/wp-content/uploads/2008/12/forkme_right_white_ffffff.png'/></a>
                 <GlobalStyle />
                 <Page ref={this.page_ref}>
                     <main>
