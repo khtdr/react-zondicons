@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactGA from 'react-ga';
 import styled, { createGlobalStyle } from 'styled-components';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 //@ts-ignore
@@ -101,6 +102,11 @@ export default class Demo extends React.Component<{
         if (this.page_ref.current && search_term && window.innerWidth <= 760) {
             this.page_ref.current.querySelector('aside')!.scrollIntoView()
         }
+        ReactGA.event({
+            category: 'Exploring Icons',
+            action: 'Search Term',
+            label: search_term
+        });
     }
     input_ref :React.RefObject<HTMLInputElement>
     page_ref :React.RefObject<HTMLDivElement>

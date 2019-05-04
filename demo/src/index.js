@@ -2,6 +2,10 @@ import React from 'react'
 import {render} from 'react-dom'
 import zondicons from '../../src'
 import DemoPage from './DemoPage'
+import * as ReactGA from 'react-ga';
+
+ReactGA.initialize('UA-290558-11');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 render(
   <DemoPage
